@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>المحاضر الإلكتروني أحمد ياسين</title>
+<style>
+  body {
+    background: #f8f9fa;
+    font-family: "Tajawal", sans-serif;
+    color: #333;
+    padding: 30px;
+    text-align: center;
+  }
+  .chat-box {
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px #ccc;
+  }
+  textarea {
+    width: 100%;
+    height: 80px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+  button {
+    background-color: #0078ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .response {
+    margin-top: 20px;
+    background: #e8f0fe;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+  <h1>🤖 المحاضر الإلكتروني أحمد ياسين</h1>
+  <div class="chat-box">
+    <textarea id="userInput" placeholder="اكتب سؤالك هنا..."></textarea>
+    <br />
+    <button onclick="askGPT()">إرسال</button>
+    <div id="response" class="response"></div>
+  </div>
+
+<script>
+async function askGPT() {
+  const input = document.getElementById('userInput').value;
+  const responseDiv = document.getElementById('response');
+  responseDiv.innerHTML = "⏳ جاري التفكير...";
+  
+  const reply = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer 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",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-5",
+      messages: [
+        { role: "system", content: "أنت المحاضر الإلكتروني أحمد ياسين، تشرح مواضيع الذكاء الصناعي في الإدارة بطريقة أكاديمية ومبسطة للموظفين الحكوميين." },
+        { role: "user", content: input }
+      ]
+    })
+  });
+
+  const data = await reply.json();
+  responseDiv.innerHTML = data.choices[0].message.content;
+}
+</script>
+</body>
+</html>
