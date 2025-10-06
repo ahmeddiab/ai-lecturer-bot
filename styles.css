@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap');
+
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --primary:#0ea5e9;
+  --primary-ink:#ffffff;
+  --ring:#bae6fd;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  margin:0;
+}
+
+.hero{
+  background:linear-gradient(135deg,#e0f2fe,#f1f5f9);
+  padding:24px 20px;
+  border-bottom:1px solid #e5e7eb;
+}
+.hero .brand h1{margin:0 0 6px 0;font-size:24px}
+.hero .subtitle{margin:0;color:var(--muted)}
+.hero .meta{margin-top:10px;color:#334155;font-size:14px}
+
+.container{
+  max-width:980px;
+  margin:20px auto;
+  padding:0 16px;
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:14px 16px;
+  margin-bottom:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.btn{
+  border:none;
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer;
+  transition:.15s;
+}
+.btn.primary{background:var(--primary);color:var(--primary-ink)}
+.btn.secondary{background:#e2e8f0;color:#0f172a}
+.btn:active{transform:translateY(1px)}
+
+.chat{
+  background:var(--card);
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  overflow:hidden;
+}
+.chat-log{
+  height:52vh;
+  overflow:auto;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fbfdff;
+}
+.msg{
+  max-width:85%;
+  padding:12px 14px;
+  border-radius:12px;
+  line-height:1.7;
+  white-space:pre-wrap;
+}
+.msg.bot{
+  align-self:flex-start;
+  background:#eef6ff;
+  border:1px solid #dbeafe;
+}
+.msg.user{
+  align-self:flex-end;
+  background:#f4f4f5;
+  border:1px solid #e4e4e7;
+}
+.composer{
+  display:flex;
+  gap:12px;
+  border-top:1px solid #e5e7eb;
+  padding:12px;
+}
+.composer textarea{
+  resize:none;
+  flex:1;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:10px;
+  font-size:16px;
+  outline:none;
+}
+.footer{
+  max-width:980px;
+  margin:10px auto 40px;
+  color:var(--muted);
+  text-align:center;
+}
+a{color:#0284c7;text-decoration:none}
+a:hover{text-decoration:underline}

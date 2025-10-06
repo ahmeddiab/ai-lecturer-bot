@@ -1,83 +1,70 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>المحاضر الإلكتروني أحمد ياسين</title>
-<style>
-  body {
-    background: #f8f9fa;
-    font-family: "Tajawal", sans-serif;
-    color: #333;
-    padding: 30px;
-    text-align: center;
-  }
-  .chat-box {
-    width: 80%;
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 10px #ccc;
-  }
-  textarea {
-    width: 100%;
-    height: 80px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-  }
-  button {
-    background-color: #0078ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  .response {
-    margin-top: 20px;
-    background: #e8f0fe;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: right;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المحاضر الإلكتروني — أحمد ياسين</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>🤖 المحاضر الإلكتروني أحمد ياسين</h1>
-  <div class="chat-box">
-    <textarea id="userInput" placeholder="اكتب سؤالك هنا..."></textarea>
-    <br />
-    <button onclick="askGPT()">إرسال</button>
-    <div id="response" class="response"></div>
-  </div>
+  <header class="hero">
+    <div class="brand">
+      <h1>🤖 المحاضر الإلكتروني — أحمد ياسين</h1>
+      <p class="subtitle">
+        تحت إشراف ودعم مباشر من الدكتور أحمد الدهلكي — مدير عام مركز التدريب المالي والمحاسبي،
+        وبالتعاون مع قسم الحاسبة، تم إطلاق هذا البوت كمحاضر إلكتروني لمادة
+        <strong>«الذكاء الصناعي في الإدارة: تعزيز الكفاءة والابتكار»</strong>.
+      </p>
+    </div>
+    <div class="meta">
+      <div>قسم الحاسبة الإلكترونية — مركز التدريب المالي والمحاسبي — وزارة المالية</div>
+      <div>النسخة: <span id="version">v1.0</span></div>
+    </div>
+  </header>
 
-<script>
-async function askGPT() {
-  const input = document.getElementById('userInput').value;
-  const responseDiv = document.getElementById('response');
-  responseDiv.innerHTML = "⏳ جاري التفكير...";
-  
-  const reply = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer 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",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "gpt-5",
-      messages: [
-        { role: "system", content: "أنت المحاضر الإلكتروني أحمد ياسين، تشرح مواضيع الذكاء الصناعي في الإدارة بطريقة أكاديمية ومبسطة للموظفين الحكوميين." },
-        { role: "user", content: input }
-      ]
-    })
-  });
+  <main class="container">
+    <section class="panel kb-status">
+      <div>📚 حالة قاعدة المعرفة: <span id="kbStatus">جارِ التحميل…</span></div>
+      <div>🎙️ الصوت: 
+        <button id="micBtn" class="btn secondary" title="اسأل صوتياً">ابدأ التسجيل</button>
+        <label><input type="checkbox" id="ttsToggle" checked /> نطق الإجابة</label>
+      </div>
+      <div>⚙️ الوضع: 
+        <select id="modeSelect">
+          <option value="hybrid" selected>هجين (قاعدة المعرفة + GPT)</option>
+          <option value="kb">قاعدة المعرفة فقط (بدون GPT)</option>
+          <option value="gpt">GPT فقط</option>
+        </select>
+      </div>
+    </section>
 
-  const data = await reply.json();
-  responseDiv.innerHTML = data.choices[0].message.content;
-}
-</script>
+    <section class="chat">
+      <div id="chatLog" class="chat-log">
+        <div class="msg bot">
+          أهلاً بك! أنا «المحاضر الإلكتروني — أحمد ياسين». اسألني ضمن نطاق المادة الدراسية،
+          وإذا خرج السؤال عن النطاق سأخبرك بذلك.
+        </div>
+      </div>
+      <div class="composer">
+        <textarea id="userInput" placeholder="اكتب سؤالك هنا… (أو استخدم المايك)"></textarea>
+        <button id="sendBtn" class="btn primary">إرسال</button>
+      </div>
+    </section>
+
+    <section class="panel notes">
+      <details>
+        <summary>🔒 ملاحظة أمنية</summary>
+        <p>في حال استخدام وضع GPT على صفحة عامة، يجب عدم وضع مفتاح API داخل المتصفح لأنه سيكون مكشوفاً. للاستخدام التجريبي الداخلي فقط،
+        يمكنك إنشاء ملف <code>config.js</code> وإضافة المفتاح محلياً. للاستخدام العام يُفضّل إضافة طبقة وسيطة (خادم/سيرفرلس).</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="README.md">تعليمات الإعداد</a> · <a href="knowledge.txt">عرض قاعدة المعرفة</a>
+  </footer>
+
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
